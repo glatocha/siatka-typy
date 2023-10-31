@@ -50,7 +50,7 @@
       label="Zapisz Wynik"
       glossy
       type="button"
-      color="primary"
+      color="accent"
       @click="saveScore"
     />
   </q-card>

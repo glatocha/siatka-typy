@@ -55,6 +55,16 @@ onMounted(async () => {
     console.log("get games done");
     console.log("data :>> ", games);
     piniaStore.games = games;
+
+    // load bets from supabase
+    const { data: bets, error: be_error } = await supabase
+      .from("siatka-bets")
+      .select();
+    if (be_error) throw error;
+    console.log("get bets done");
+    console.log("bets :>> ", bets);
+    //TODO: Clean up all the console logs
+    piniaStore.bets = bets;
   } catch (error) {
     console.log(`Error: ${error.message}`);
   }

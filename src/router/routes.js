@@ -28,6 +28,11 @@ const routes = [
         name: "Add",
         component: () => import("pages/AddGamePage.vue"),
       },
+      {
+        path: "/table",
+        name: "Table",
+        component: () => import("pages/TablePage.vue"),
+      },
     ],
   },
 

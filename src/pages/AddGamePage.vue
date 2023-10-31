@@ -8,11 +8,41 @@
       ></q-select>
       <date-time-picker v-model="dateTime" />
       <q-btn-group spread>
-        <q-btn color="primary" label="Dz-" type="button" @click="subDay" />
-        <q-btn color="primary" label="Dz+" type="button" @click="addDay" />
-        <q-btn color="secondary" label="14:45" type="button" @click="time1" />
-        <q-btn color="secondary" label="17:30" type="button" @click="time2" />
-        <q-btn color="secondary" label="20:30" type="button" @click="time3" />
+        <q-btn
+          color="primary"
+          label="Dz-"
+          type="button"
+          glossy
+          @click="subDay"
+        />
+        <q-btn
+          color="primary"
+          label="Dz+"
+          type="button"
+          glossy
+          @click="addDay"
+        />
+        <q-btn
+          color="secondary"
+          label="14:45"
+          type="button"
+          glossy
+          @click="time1"
+        />
+        <q-btn
+          color="secondary"
+          label="17:30"
+          type="button"
+          glossy
+          @click="time2"
+        />
+        <q-btn
+          color="secondary"
+          label="20:30"
+          type="button"
+          glossy
+          @click="time3"
+        />
       </q-btn-group>
 
       <q-select
@@ -25,15 +55,16 @@
         :options="availableTeams"
         label="Goście"
       ></q-select>
+      <game-result class="q-mx-sm q-my-md" :game="game" />
       <q-btn
         class="q-mx-auto q-mt-sm full-width"
         label="Dadaj mecz"
+        glossy
         type="submit"
-        color="primary"
+        color="accent"
       />
     </q-form>
     <q-space></q-space>
-    <game-result class="q-mx-sm q-mb-sm" :game="game" />
   </q-page>
 </template>
 
@@ -49,8 +80,8 @@ const piniaStore = usePiniaStore();
 const availableRounds = computed(() =>
   [...Array(29).keys()].map((i) => `kolejka ${i + 1}`)
 );
-const round = ref("kolejka 4");
-const dateTime = ref("2023-10-29 18:30");
+const round = ref("kolejka 4"); //TODO: Select by def next not finished round
+const dateTime = ref(moment().format("YYYY-MM-DD HH:mm"));
 const availableTeams = ref(getAvailableTeams(round.value).map((t) => t.name));
 // console.log("availableTeams :>> ", availableTeams);
 const teamHome = ref("");

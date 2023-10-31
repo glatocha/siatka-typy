@@ -1,6 +1,5 @@
 TODO:
-- Typowanie
-- zmienić buttony w dodawaniu meczy na glossy
+- Tabela
 - Automatyczne sprawdzenie który mecz powinien się juz zakończyć
 - wyświetlenie typów zawodnika
 - dodanie numeru kolejki przy liście meczy
@@ -13,5 +12,8 @@ DONE:
 - Poprawne formatowanie daty
 - Dodawanie meczu - MVP
 - Dodawanie wyniku
+- zmienić favicon i ikonę "bez klubu"
+- zmienić buttony w dodawaniu meczy na glossy
+- Typowanie
 
 

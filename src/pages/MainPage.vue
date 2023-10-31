@@ -1,11 +1,52 @@
 <template>
-  <q-page class="flex column flex-center">
-    <q-btn label="Mecze" @click.prevent="router.push('/games')"></q-btn>
-    <q-btn label="Typuj" @click.prevent="router.push('/bets')"></q-btn>
-    <q-btn label="Moje typy"></q-btn>
-    <q-btn label="Tabela"></q-btn>
-    <q-btn label="Wpisz Wynik"></q-btn>
-    <q-btn label="Dodaj Mecze" @click.prevent="router.push('/add')"></q-btn>
+  <q-page class="flex column flex-center q-px-xl">
+    <q-btn
+      label="Mecze"
+      class="full-width"
+      size="lg"
+      glossy
+      color="primary"
+      @click.prevent="router.push('/games')"
+    ></q-btn>
+    <q-btn
+      label="Typuj"
+      class="full-width"
+      size="lg"
+      glossy
+      color="primary"
+      @click.prevent="router.push('/bets')"
+    ></q-btn>
+    <q-btn
+      label="Moje typy"
+      class="full-width"
+      disable
+      size="lg"
+      glossy
+      color="primary"
+    ></q-btn>
+    <q-btn
+      label="Tabela"
+      class="full-width"
+      size="lg"
+      glossy
+      color="primary"
+      @click.prevent="router.push('/table')"
+    ></q-btn>
+    <q-btn
+      label="Wpisz Wynik"
+      class="full-width"
+      size="lg"
+      glossy
+      color="secondary"
+    ></q-btn>
+    <q-btn
+      label="Dodaj Mecze"
+      class="full-width"
+      size="lg"
+      glossy
+      color="secondary"
+      @click.prevent="router.push('/add')"
+    ></q-btn>
   </q-page>
 </template>
 
