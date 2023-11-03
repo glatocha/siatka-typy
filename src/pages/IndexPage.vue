@@ -34,7 +34,7 @@ onMounted(async () => {
       .select();
     if (pl_error) throw error;
     console.log("get players done");
-    console.log("data :>> ", players);
+    // console.log("data :>> ", players);
     piniaStore.players = players;
 
     // load teams from supabase
@@ -43,7 +43,7 @@ onMounted(async () => {
       .select();
     if (te_error) throw error;
     console.log("get teams done");
-    console.log("data :>> ", teams);
+    // console.log("data :>> ", teams);
     piniaStore.teams = teams;
 
     // load games from supabase
@@ -53,7 +53,7 @@ onMounted(async () => {
       .order("gameNo", { ascending: true });
     if (ga_error) throw error;
     console.log("get games done");
-    console.log("data :>> ", games);
+    // console.log("data :>> ", games);
     piniaStore.games = games;
 
     // load bets from supabase
@@ -62,8 +62,7 @@ onMounted(async () => {
       .select();
     if (be_error) throw error;
     console.log("get bets done");
-    console.log("bets :>> ", bets);
-    //TODO: Clean up all the console logs
+    // console.log("bets :>> ", bets);
     piniaStore.bets = bets;
   } catch (error) {
     console.log(`Error: ${error.message}`);
@@ -72,7 +71,7 @@ onMounted(async () => {
 
 function selectPlayer(player) {
   piniaStore.activePlayer = player;
-  router.push({ name: "Main" });
+  router.push("/main");
 }
 </script>
 

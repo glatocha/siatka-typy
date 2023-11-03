@@ -1,7 +1,7 @@
 {
   "name": "fani-siatki",
-  "version": "0.0.1",
-  "description": "Typowanie PlusLigi",
+  "version": "0.2.0",
+  "description": "Rodzinne Typowanie PlusLigi",
   "productName": "Fani siatki",
   "author": "glatocha <glatocha@gmail.com>",
   "private": true,

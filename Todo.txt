@@ -1,11 +1,12 @@
+NEXT COMMIT:
+- odświerz dane link w hamburgerze
+
+
 TODO:
-- Tabela
 - Automatyczne sprawdzenie który mecz powinien się juz zakończyć
-- wyświetlenie typów zawodnika
-- dodanie numeru kolejki przy liście meczy
-
-
-
+- przy typach moliwość pokazania ostatnich 5 meczy druyn
+- dodać jakąś stroną O projekcie
+- skompilować jako PWA
 
 
 DONE:
@@ -15,5 +16,18 @@ DONE:
 - zmienić favicon i ikonę "bez klubu"
 - zmienić buttony w dodawaniu meczy na glossy
 - Typowanie
+- Tabela
+- dodanie numeru kolejki przy liście meczy
+### First RELEASE ###
+- Z kazdego ekranu mozliwość wyjścia do głównego ekranu - MVP
+- tabela z typami swoimi i wszystkich
+- Po zapisaniu typów jakaś informacja i wyjście do głównego - MVP 
+- dodać wszystkie ekrany do hamburgera - MVP
+- wyświetlenie typów zawodnika na stronie z typami - indykacja juz obstawionych
+- zmienić indykację typowania na ramkę?
+- wybór kolejki w liście meczy
+- wyświetlenie typów zawodnika, z indykacją trafiony lub nie
+### release 0.2
+
 
 

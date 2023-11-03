@@ -41,6 +41,8 @@ const props = defineProps({
 }
 
 .bet {
-  background-color: $bet-highlight;
+  // background-color: $bet-highlight;
+  border: 3px solid $bet-highlight;
+  border-radius: 3px;
 }
 </style>

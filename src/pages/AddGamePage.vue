@@ -65,6 +65,15 @@
       />
     </q-form>
     <q-space></q-space>
+    <div class="full-width q-px-md">
+      <q-btn
+        to="/main"
+        label="Powrót"
+        glossy
+        color="primary"
+        class="full-width"
+      />
+    </div>
   </q-page>
 </template>
 

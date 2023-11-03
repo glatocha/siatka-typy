@@ -1,36 +1,42 @@
 const routes = [
   {
     path: "/",
+    redirect: { path: "/index" }, // redirect property
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        path: "",
-        name: "Welcome",
+        path: "/index",
+        name: "Witaj",
         component: () => import("pages/IndexPage.vue"),
       },
       {
         path: "/main",
-        name: "Main",
+        name: "Menu główne",
         component: () => import("pages/MainPage.vue"),
       },
       {
         path: "/games",
-        name: "Games",
+        name: "Lista meczy",
         component: () => import("pages/GamesPage.vue"),
       },
       {
-        path: "/bets",
-        name: "Bets",
+        path: "/mybets",
+        name: "Typuj",
         component: () => import("pages/BetsPage.vue"),
       },
       {
+        path: "/allbets",
+        name: "Wszystkie typy",
+        component: () => import("pages/AllBetsPage.vue"),
+      },
+      {
         path: "/add",
-        name: "Add",
+        name: "Dodaj mecz",
         component: () => import("pages/AddGamePage.vue"),
       },
       {
         path: "/table",
-        name: "Table",
+        name: "Tabela",
         component: () => import("pages/TablePage.vue"),
       },
     ],

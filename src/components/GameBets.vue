@@ -38,7 +38,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["update:modelValue"]);
 
-const bet = ref();
+const bet = ref(props.game.bet);
 
 const newDateTimeString = computed(() => {
   const dt = moment(props.game.dateTime);
@@ -47,8 +47,11 @@ const newDateTimeString = computed(() => {
 });
 
 function teamClick(winner) {
-  bet.value = winner;
-  emit("update:modelValue", winner);
+  //checking if the game already has a game in database?
+  if (!piniaStore.activePlayerBet(props.game.id)) {
+    bet.value = winner;
+    emit("update:modelValue", winner);
+  }
 }
 </script>
 

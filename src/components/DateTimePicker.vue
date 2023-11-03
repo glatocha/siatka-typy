@@ -35,8 +35,13 @@ import { ref, watch, computed } from "vue";
 const props = defineProps(["modelValue"]);
 const emit = defineEmits(["update:modelValue"]);
 
-const date = computed(() => props.modelValue);
+// const date = computed(() => props.modelValue);
+const date = ref(props.modelValue);
 
+watch(props, (_, _2) => {
+  console.log("date prop changed");
+  date.value = props.modelValue;
+});
 watch(date, (newValue, _) => {
   // console.log("date :>> ", newValue);
   emit("update:modelValue", newValue);

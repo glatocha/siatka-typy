@@ -14,15 +14,15 @@
       size="lg"
       glossy
       color="primary"
-      @click.prevent="router.push('/bets')"
+      @click.prevent="router.push('/mybets')"
     ></q-btn>
     <q-btn
-      label="Moje typy"
+      label="Wszystkie typy"
       class="full-width"
-      disable
       size="lg"
       glossy
       color="primary"
+      @click.prevent="router.push('/allbets')"
     ></q-btn>
     <q-btn
       label="Tabela"
@@ -32,13 +32,13 @@
       color="primary"
       @click.prevent="router.push('/table')"
     ></q-btn>
-    <q-btn
+    <!-- <q-btn
       label="Wpisz Wynik"
       class="full-width"
       size="lg"
       glossy
       color="secondary"
-    ></q-btn>
+    ></q-btn> -->
     <q-btn
       label="Dodaj Mecze"
       class="full-width"

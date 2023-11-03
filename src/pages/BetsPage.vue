@@ -20,6 +20,15 @@
         color="accent"
       />
     </q-form>
+    <div class="full-width q-px-md">
+      <q-btn
+        to="/main"
+        label="Powrót"
+        glossy
+        color="primary"
+        class="full-width"
+      />
+    </div>
   </q-page>
 </template>
 
@@ -28,6 +37,8 @@ import { ref, computed, watch, onBeforeMount } from "vue";
 import GameBets from "src/components/GameBets.vue";
 import { supabase } from "boot/supabase";
 import { usePiniaStore } from "stores/pinia";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const piniaStore = usePiniaStore();
 
@@ -52,7 +63,8 @@ onBeforeMount(() => {
     (g) => g.round === +round.value.split(" ")[1]
   );
   games.value.forEach((g, index) => {
-    g.bet = null;
+    // g.bet = null;
+    g.bet = piniaStore.activePlayerBet(g.id);
   });
 });
 
@@ -62,13 +74,14 @@ watch(round, (nv, _) => {
   games.value = piniaStore.games.filter((g) => g.round === +nv.split(" ")[1]);
   //after changing the round all the bets will be reset
   games.value.forEach((g, index) => {
-    g.bet = null;
+    // g.bet = null;
+    g.bet = piniaStore.activePlayerBet(g.id);
   });
 });
 
 async function onSubmit() {
   //TODO: Spinner
-  // Check if all games are bets
+  // Check if all games have bets
   const nulls = games.value.reduce((p, a) => {
     if (!a.bet) {
       return p + 1;
@@ -86,6 +99,12 @@ async function onSubmit() {
   );
   console.log("error :>> ", error);
   // TODO: Message success or failure
+  if (error) {
+    alert(`Wystąpił problem z zapisaniem typów do bazy: ${error.message}`);
+  } else {
+    alert("Typy zapisane poprawnie - Powodzenia!");
+    router.push("/main");
+  }
 
   // //Refresh the games list in the app
   // try {
