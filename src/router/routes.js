@@ -39,6 +39,11 @@ const routes = [
         name: "Tabela",
         component: () => import("pages/TablePage.vue"),
       },
+      {
+        path: "/about",
+        name: "O aplikacji",
+        component: () => import("pages/AboutPage.vue"),
+      },
     ],
   },
 

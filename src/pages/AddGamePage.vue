@@ -86,10 +86,23 @@ import { usePiniaStore } from "stores/pinia";
 import moment from "moment";
 const piniaStore = usePiniaStore();
 
+import { useQuasar, QSpinnerGears } from "quasar";
+const $q = useQuasar();
+
 const availableRounds = computed(() =>
-  [...Array(29).keys()].map((i) => `kolejka ${i + 1}`)
+  [...Array(30).keys()].map((i) => `Kolejka ${i + 1}`)
 );
-const round = ref("kolejka 4"); //TODO: Select by def next not finished round
+const firstNotFilledRound = [...Array(30).keys()]
+  .map((r) => {
+    return {
+      round: r + 1,
+      games: piniaStore.games.filter((g) => g.round == r + 1).length,
+    };
+  })
+  .filter((noG) => noG.games != 8)[0].round;
+// console.log("firstNotFilledRound :>> ", firstNotFilledRound);
+// const round = ref(`Kolejka 4`); //TODO: Select by def next not finished round
+const round = ref(`Kolejka ${firstNotFilledRound}`);
 const dateTime = ref(moment().format("YYYY-MM-DD HH:mm"));
 const availableTeams = ref(getAvailableTeams(round.value).map((t) => t.name));
 // console.log("availableTeams :>> ", availableTeams);
@@ -151,7 +164,7 @@ function getAvailableTeams(round) {
       teamsInRound.push(g.teamHome);
       teamsInRound.push(g.teamAway);
     }); //create a list of already used teams for that round
-  console.log("teamsInRound :>> ", teamsInRound);
+  // console.log("teamsInRound :>> ", teamsInRound);
   return piniaStore.teams.filter((t) => !teamsInRound.includes(t.id)); //subtract the used teams from the teams list
 }
 
@@ -174,6 +187,15 @@ async function onSubmit() {
   //console.log("game :>> ", game.value);
 
   //TODO: Spinner
+  $q.loading.show({
+    spinner: QSpinnerGears,
+    spinnerSize: 40,
+    message: "Ładowanie danych z bazy...",
+    messageColor: "primary",
+    boxClass: "bg-grey-2 text-grey-9",
+    spinnerColor: "secondary",
+    // delay: 500,
+  });
   const { error } = await supabase.from("siatka-games").insert(game.value);
   console.log("error :>> ", error);
   // TODO: Message success or failure
@@ -189,6 +211,7 @@ async function onSubmit() {
   } catch (error) {
     console.log(`Error: ${error.message}`);
   }
+  $q.loading.hide();
 
   //Refresh available teams
   availableTeams.value = getAvailableTeams(round.value).map((t) => t.name);

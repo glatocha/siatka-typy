@@ -38,13 +38,15 @@ import GameBets from "src/components/GameBets.vue";
 import { supabase } from "boot/supabase";
 import { usePiniaStore } from "stores/pinia";
 import { useRouter } from "vue-router";
+import { useQuasar, QSpinnerGears } from "quasar";
+const $q = useQuasar();
 const router = useRouter();
 
 const piniaStore = usePiniaStore();
 
 const availableRounds = ref();
 
-const round = ref(); //TODO: Select by def next not bet round
+const round = ref();
 
 const games = ref([]);
 
@@ -81,21 +83,34 @@ watch(round, (nv, _) => {
 
 async function onSubmit() {
   //TODO: Spinner
+  $q.loading.show({
+    spinner: QSpinnerGears,
+    spinnerSize: 40,
+    message: "Ładowanie danych z bazy...",
+    messageColor: "primary",
+    boxClass: "bg-grey-2 text-grey-9",
+    spinnerColor: "secondary",
+    // delay: 500,
+  });
   // Check if all games have bets
-  const nulls = games.value.reduce((p, a) => {
-    if (!a.bet) {
-      return p + 1;
-    } else return p;
-  }, 0);
+  // const nulls = games.value.reduce((p, a) => {
+  //   if (!a.bet) {
+  //     return p + 1;
+  //   } else return p;
+  // }, 0);
 
-  if (nulls != 0) {
-    alert("Musisz wytypować wszystkie mecze kolejki");
-    return;
-  }
+  // if (nulls != 0) {
+  //   alert("Musisz wytypować wszystkie mecze kolejki");
+  //   return;
+  // }
+
+  //filter for the games that have bets in the current page, but do not have in store (so new bets only)
   const { error } = await supabase.from("siatka-bets").insert(
-    games.value.map((g) => {
-      return { userId: piniaStore.activePlayer.id, gameId: g.id, bet: g.bet };
-    })
+    games.value
+      .filter((g) => g.bet && !piniaStore.activePlayerBet(g.id))
+      .map((g) => {
+        return { userId: piniaStore.activePlayer.id, gameId: g.id, bet: g.bet };
+      })
   );
   console.log("error :>> ", error);
   // TODO: Message success or failure
@@ -106,22 +121,18 @@ async function onSubmit() {
     router.push("/main");
   }
 
-  // //Refresh the games list in the app
-  // try {
-  //   // load games from supabase
-  //   const { data: games, error: ga_error } = await supabase
-  //     .from("siatka-games")
-  //     .select();
-  //   if (ga_error) throw error;
-  //   piniaStore.games = games;
-  // } catch (error) {
-  //   console.log(`Error: ${error.message}`);
-  // }
-
-  // //Refresh available teams
-  // availableTeams.value = getAvailableTeams(round.value).map((t) => t.name);
-  // teamAway.value = "";
-  // teamHome.value = "";
+  //Refresh the bets list in the app
+  try {
+    // load bets from supabase
+    const { data: bets, error: be_error } = await supabase
+      .from("siatka-bets")
+      .select();
+    if (be_error) throw error;
+    piniaStore.bets = bets;
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+  }
+  $q.loading.hide();
 }
 </script>
 

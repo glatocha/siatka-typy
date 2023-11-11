@@ -51,13 +51,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { supabase } from "boot/supabase";
+import moment from "moment";
 import { usePiniaStore } from "stores/pinia";
 
 const piniaStore = usePiniaStore();
 import { useRouter } from "vue-router";
 const router = useRouter();
+//TODO: check if there is a game that should be finished but have no score
+const findGameNoScore = piniaStore.games
+  .filter((g) => !g.result)
+  .find((g) => moment(g.dateTime).isBefore(moment().add(3, "hours")));
+
+if (findGameNoScore) {
+  const addingScore = confirm(
+    `Mecz pomiędzy ${piniaStore.team(findGameNoScore.teamHome).name} a ${
+      piniaStore.team(findGameNoScore.teamAway).name
+    } powinien się juz zakończyć. Czy chcesz dodać wynik?`
+  );
+  if (addingScore) {
+    piniaStore.gameNoScore = findGameNoScore;
+    router.push("/games");
+  } else {
+    piniaStore.gameNoScore = null;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -8,6 +8,7 @@
         class="w40 pointer"
         :bet="bet == 1"
         :team="piniaStore.team(game.teamHome)"
+        last5="true"
         @click="teamClick(1)"
       ></team-small>
       <p class="text-h4 text-bold q-my-auto">{{ game.result }}</p>
@@ -15,6 +16,7 @@
         class="w40 pointer"
         :bet="bet == 2"
         :team="piniaStore.team(game.teamAway)"
+        last5="true"
         reverse="true"
         @click="teamClick(2)"
       ></team-small>
@@ -48,7 +50,11 @@ const newDateTimeString = computed(() => {
 
 function teamClick(winner) {
   //checking if the game already has a game in database?
-  if (!piniaStore.activePlayerBet(props.game.id)) {
+  //check if the game is not started yet
+  if (
+    !piniaStore.activePlayerBet(props.game.id) &&
+    moment(props.game.dateTime).isAfter(moment())
+  ) {
     bet.value = winner;
     emit("update:modelValue", winner);
   }

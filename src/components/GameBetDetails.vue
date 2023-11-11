@@ -12,7 +12,9 @@
         </div>
         <div
           class="q-px-md q-mr-sm"
-          :class="{ betOK: game[`player${index + 1}Bet`] == game.winner }"
+          :class="{
+            betOK: game.winner && game[`player${index + 1}Bet`] == game.winner,
+          }"
         >
           {{ game[`player${index + 1}Bet`] }}
         </div>

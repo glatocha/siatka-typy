@@ -76,6 +76,10 @@ const essentialLinks = [
     title: "Tabela",
     link: "/table",
   },
+  {
+    title: "O aplikacji",
+    link: "/about",
+  },
 ];
 
 const user = computed(() => piniaStore.activePlayer);

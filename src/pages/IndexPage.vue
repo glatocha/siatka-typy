@@ -24,9 +24,22 @@ const piniaStore = usePiniaStore();
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+import { useQuasar, QSpinnerGears } from "quasar";
+const $q = useQuasar();
+
 //download supabase data
 onMounted(async () => {
   //TODO: prepare the loading spinner - with volleyball icon
+  $q.loading.show({
+    spinner: QSpinnerGears,
+    spinnerSize: 40,
+    message: "Ładowanie danych z bazy...",
+    messageColor: "primary",
+    boxClass: "bg-grey-2 text-grey-9",
+    spinnerColor: "secondary",
+    // delay: 500,
+  });
+
   try {
     // load players from supabase
     const { data: players, error: pl_error } = await supabase
@@ -67,6 +80,7 @@ onMounted(async () => {
   } catch (error) {
     console.log(`Error: ${error.message}`);
   }
+  $q.loading.hide();
 }); //onMounted
 
 function selectPlayer(player) {

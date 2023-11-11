@@ -2,7 +2,7 @@
   <q-page class="vvflex vvflex-center">
     <!-- <h4 class="text-center">Mecze</h4> -->
     <!-- TODO: Add filtering for the round -->
-    <game-all-bets-header class="q-mx-sm" />
+    <game-all-bets-header class="q-mx-sm q-mt-sm" />
     <game-all-bets
       class="q-mx-sm q-mb-sm"
       v-for="(game, index) in piniaStore.gamesWithBets"

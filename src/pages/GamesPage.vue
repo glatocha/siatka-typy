@@ -20,7 +20,7 @@
           piniaStore?.gamesWithBets[index + 1]?.round,
       }"
     />
-    <div class="full-width q-px-md">
+    <div class="full-width q-px-md q-mb-md">
       <q-btn
         to="/main"
         label="Powrót"
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, watch } from "vue";
+import { ref, onBeforeMount, onMounted, watch } from "vue";
 import GameResult from "src/components/GameResult.vue";
 import AddScore from "src/components/AddScore.vue";
 import GameBetDetails from "src/components/GameBetDetails.vue";
@@ -64,6 +64,8 @@ const availableRounds = ref();
 const round = ref();
 const roundNo = ref(null);
 
+const selGame = ref(null);
+
 onBeforeMount(() => {
   const arr = [];
   piniaStore.games.forEach((g) => {
@@ -78,6 +80,12 @@ onBeforeMount(() => {
   roundNo.value = null;
 });
 
+onMounted(() => {
+  if (piniaStore.gameNoScore) {
+    openPopup(piniaStore.gameNoScore);
+  }
+});
+
 watch(round, (nv, _) => {
   if (nv === "Wszystkie") {
     roundNo.value = null;
@@ -85,8 +93,6 @@ watch(round, (nv, _) => {
     roundNo.value = +nv.split(" ")[1];
   }
 });
-
-const selGame = ref(null);
 
 function openPopup(game) {
   selGame.value = game;
