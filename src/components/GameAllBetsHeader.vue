@@ -20,11 +20,29 @@
       <div class="col-3">GOŚĆ</div>
       <!-- <div class="col"></div> -->
       <div class="col bg-player1 q-ml-sm">
-        {{ piniaStore.betsTable[0].score }}
+        {{
+          piniaStore.betsTable.find((b) => b.id == piniaStore.players[0].id)
+            .score
+        }}
       </div>
-      <div class="col bg-player2">{{ piniaStore.betsTable[1].score }}</div>
-      <div class="col bg-player3">{{ piniaStore.betsTable[2].score }}</div>
-      <div class="col bg-player4">{{ piniaStore.betsTable[3].score }}</div>
+      <div class="col bg-player2">
+        {{
+          piniaStore.betsTable.find((b) => b.id == piniaStore.players[1].id)
+            .score
+        }}
+      </div>
+      <div class="col bg-player3">
+        {{
+          piniaStore.betsTable.find((b) => b.id == piniaStore.players[2].id)
+            .score
+        }}
+      </div>
+      <div class="col bg-player4">
+        {{
+          piniaStore.betsTable.find((b) => b.id == piniaStore.players[3].id)
+            .score
+        }}
+      </div>
     </div>
   </div>
 </template>
