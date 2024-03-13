@@ -21,7 +21,7 @@
         obecna wersja: <span class="text-accent">{{ version }}</span>
       </div>
       <div class="text-h6 text-secondary">
-        data wersji: <span class="text-accent">{{ date }}</span>
+        data wersji: <span class="text-accent">{{ releaseDate }}</span>
       </div>
     </div>
     <div class="full-width q-px-md">
@@ -39,8 +39,7 @@
 <script setup>
 const author = "Grzegorz Latocha";
 const version = process.env.APP_VERSION;
-// const version = "0.2.0";
-const date = "2023-11-11";
+const releaseDate = process.env.APP_DATE;
 </script>
 
 <style lang="scss" scoped>

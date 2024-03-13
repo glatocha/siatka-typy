@@ -53,7 +53,8 @@ onMounted(async () => {
     // load teams from supabase
     const { data: teams, error: te_error } = await supabase
       .from("siatka-teams")
-      .select();
+      .select()
+      .order("name", { ascending: true });
     if (te_error) throw error;
     console.log("get teams done");
     // console.log("data :>> ", teams);

@@ -5,6 +5,7 @@
       <div class="text-center q-my-none q-mx-auto">
         {{ newDateTimeString }}
       </div>
+      <div class="q-ml-sm">#{{ game.gameNo }}</div>
     </div>
     <div class="flex items-center justify-around">
       <team-small

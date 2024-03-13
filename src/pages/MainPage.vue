@@ -60,7 +60,7 @@ const router = useRouter();
 //TODO: check if there is a game that should be finished but have no score
 const findGameNoScore = piniaStore.games
   .filter((g) => !g.result)
-  .find((g) => moment(g.dateTime).isBefore(moment().add(3, "hours")));
+  .find((g) => moment(g.dateTime).add(3, "hours").isBefore(moment()));
 
 if (findGameNoScore) {
   const addingScore = confirm(

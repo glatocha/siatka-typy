@@ -1,11 +1,13 @@
 <template>
-  <q-page class="vvflex vvflex-center">
-    <q-select
-      class="q-mx-md"
-      v-model="round"
-      :options="availableRounds"
-      label="Kolejka"
-    ></q-select>
+  <q-page class="vvflex vvflex-center" style="padding-top: 55px">
+    <!-- <q-page-sticky position="top">
+      <q-select
+        class="q-mx-md"
+        v-model="round"
+        :options="availableRounds"
+        label="Kolejka"
+      ></q-select>
+    </q-page-sticky> -->
     <game-result
       class="q-mx-sm q-mb-sm"
       v-for="(game, index) in piniaStore.gamesWithBets.filter((g) => {
@@ -20,7 +22,7 @@
           piniaStore?.gamesWithBets[index + 1]?.round,
       }"
     />
-    <div class="full-width q-px-md q-mb-md">
+    <div class="full-width q-px-md q-mb-md" id="lastEl">
       <q-btn
         to="/main"
         label="Powrót"
@@ -29,6 +31,14 @@
         class="full-width"
       />
     </div>
+    <q-page-sticky expand position="top">
+      <q-select
+        class="full-width q-px-md round-selector"
+        v-model="round"
+        :options="availableRounds"
+        label="Kolejka"
+      ></q-select>
+    </q-page-sticky>
   </q-page>
 
   <q-dialog v-model="addScorePopup">
@@ -54,7 +64,10 @@ import AddScore from "src/components/AddScore.vue";
 import GameBetDetails from "src/components/GameBetDetails.vue";
 import { usePiniaStore } from "stores/pinia";
 import moment from "moment";
+import { scroll } from "quasar";
 // import TeamSmall from "../components/TeamSmall.vue";
+
+const { getScrollTarget, setVerticalScrollPosition } = scroll;
 
 const piniaStore = usePiniaStore();
 const addScorePopup = ref(false);
@@ -81,6 +94,11 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
+  const target = getScrollTarget(document.getElementById("lastEl"));
+  const offset = document.getElementById("lastEl").offsetTop;
+  const duration = 50;
+  setVerticalScrollPosition(target, offset, duration);
+
   if (piniaStore.gameNoScore) {
     openPopup(piniaStore.gameNoScore);
   }
@@ -112,5 +130,10 @@ function openPopup(game) {
 .lastInRound {
   border-bottom: 3px solid black;
   padding-bottom: 3px;
+}
+
+.round-selector {
+  width: 90%;
+  background: white;
 }
 </style>

@@ -1,5 +1,4 @@
 TODO - NEXT COMMIT:
-- skompilować jako PWA
 - notifications 
     
 
@@ -32,6 +31,9 @@ DONE:
 - sortowanie tabeli liderów
 - Automatyczne sprawdzenie który mecz powinien się juz zakończyć
 - check betting on finished games
+- created PWA, run again the icongeenie
+### release 0.3
+- fixed bug, the time calculation for adding score was fixed
 
 
 
