@@ -47,6 +47,9 @@
       color="secondary"
       @click.prevent="router.push('/add')"
     ></q-btn>
+    <div class="text-h6 text-secondary q-mt-lg local-dimmed">
+      obecna wersja: <span class="text-accent">{{ version }}</span>
+    </div>
   </q-page>
 </template>
 
@@ -57,6 +60,8 @@ import { usePiniaStore } from "stores/pinia";
 const piniaStore = usePiniaStore();
 import { useRouter } from "vue-router";
 const router = useRouter();
+
+const version = process.env.APP_VERSION;
 //TODO: check if there is a game that should be finished but have no score
 const findGameNoScore = piniaStore.games
   .filter((g) => !g.result)
@@ -91,5 +96,9 @@ if (findGameNoScore) {
 
 .flex {
   gap: 10px;
+}
+
+.local-dimmed {
+  opacity: 50%;
 }
 </style>
