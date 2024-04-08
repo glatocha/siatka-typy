@@ -9,6 +9,7 @@ export const usePiniaStore = defineStore("pinia", {
     bets: [],
     activePlayer: null,
     gameNoScore: null,
+    allRounds: null,
   }),
   getters: {
     team(state) {

@@ -3,7 +3,7 @@
     <q-form class="q-ma-md" @submit="onSubmit">
       <q-select
         v-model="round"
-        :options="availableRounds"
+        :options="availableRounds.map((i) => i.item)"
         label="Kolejka"
       ></q-select>
       <date-time-picker v-model="dateTime" />
@@ -89,17 +89,26 @@ const piniaStore = usePiniaStore();
 import { useQuasar, QSpinnerGears } from "quasar";
 const $q = useQuasar();
 
-const availableRounds = computed(() =>
-  [...Array(30).keys()].map((i) => `Kolejka ${i + 1}`)
-);
-const firstNotFilledRound = [...Array(30).keys()]
-  .map((r) => {
-    return {
-      round: r + 1,
-      games: piniaStore.games.filter((g) => g.round == r + 1).length,
-    };
-  })
-  .filter((noG) => noG.games != 8)[0].round;
+// const availableRounds = computed(() => {
+//   const rounds = [...Array(30).keys()].map((i) => `Kolejka ${i + 1}`);
+//   rounds.push("PlayOff R1");
+//   rounds.push("PlayOff R2");
+//   rounds.push("PlayOff R3");
+//   return rounds;
+// });
+
+const availableRounds = piniaStore.allRounds;
+// const availableRounds = piniaStore.allRounds.map((i) => i.item);
+
+const firstNotFilledRound =
+  [...Array(30).keys()]
+    .map((r) => {
+      return {
+        round: r + 1,
+        games: piniaStore.games.filter((g) => g.round == r + 1).length,
+      };
+    })
+    .filter((noG) => noG.games != 8)[0]?.round ?? 1;
 // console.log("firstNotFilledRound :>> ", firstNotFilledRound);
 // const round = ref(`Kolejka 4`); //TODO: Select by def next not finished round
 const round = ref(`Kolejka ${firstNotFilledRound}`);
@@ -156,16 +165,20 @@ function time3() {
 
 function getAvailableTeams(round) {
   // console.log("get Teams function");
-  const r = +round.split(" ")[1];
-  const teamsInRound = [];
-  piniaStore.games
-    .filter((el) => el.round === r)
-    .forEach((g) => {
-      teamsInRound.push(g.teamHome);
-      teamsInRound.push(g.teamAway);
-    }); //create a list of already used teams for that round
-  // console.log("teamsInRound :>> ", teamsInRound);
-  return piniaStore.teams.filter((t) => !teamsInRound.includes(t.id)); //subtract the used teams from the teams list
+  if (piniaStore.allRounds.find((i) => i.item == round).multiGame) {
+    return piniaStore.teams;
+  } else {
+    const r = +round.split(" ")[1];
+    const teamsInRound = [];
+    piniaStore.games
+      .filter((el) => el.round === r)
+      .forEach((g) => {
+        teamsInRound.push(g.teamHome);
+        teamsInRound.push(g.teamAway);
+      }); //create a list of already used teams for that round
+    // console.log("teamsInRound :>> ", teamsInRound);
+    return piniaStore.teams.filter((t) => !teamsInRound.includes(t.id)); //subtract the used teams from the teams list
+  }
 }
 
 const game = ref({
@@ -196,6 +209,7 @@ async function onSubmit() {
     spinnerColor: "secondary",
     // delay: 500,
   });
+  console.log("game :>> ", game.value);
   const { error } = await supabase.from("siatka-games").insert(game.value);
   console.log("error :>> ", error);
   // TODO: Message success or failure

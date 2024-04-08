@@ -1,6 +1,9 @@
 <template>
   <div class="row">
-    <div class="col">K {{ game.round }}</div>
+    <!-- <div class="col">K {{ game.round }}</div> -->
+    <div class="col">
+      {{ game.round < 100 ? `K ${game.round}` : `PO ${game.round - 100}` }}
+    </div>
     <div class="col-3 text-center" :class="{ winner: game.winner == 1 }">
       {{ piniaStore.team(game.teamHome).shortName }}
     </div>

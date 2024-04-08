@@ -40,6 +40,16 @@ onMounted(async () => {
     // delay: 500,
   });
 
+  const rounds = [...Array(30).keys()].map((i) => {
+    return { item: `Kolejka ${i + 1}`, multiGame: false };
+  });
+  rounds.push({ item: "PlayOff 101", multiGame: true });
+  rounds.push({ item: "PlayOff 102", multiGame: true });
+  rounds.push({ item: "PlayOff 103", multiGame: true });
+  piniaStore.allRounds = rounds;
+
+  console.log("piniaStore.availableTeams :>> ", piniaStore.availableTeams);
+
   try {
     // load players from supabase
     const { data: players, error: pl_error } = await supabase

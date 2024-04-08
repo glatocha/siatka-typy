@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="flex q-mt-sm">
-      <div class="q-ml-sm">K {{ game.round }}</div>
+      <!-- <div class="q-ml-sm">K {{ game.round }}</div> -->
+      <div class="q-ml-sm">
+        {{ game.round < 100 ? `K ${game.round}` : `PO ${game.round - 100}` }}
+      </div>
+
       <div class="text-center q-my-none q-mx-auto">
         {{ newDateTimeString }}
       </div>
