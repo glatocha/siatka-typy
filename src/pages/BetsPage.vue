@@ -115,9 +115,11 @@ async function onSubmit() {
   console.log("error :>> ", error);
   // TODO: Message success or failure
   if (error) {
-    alert(`Wystąpił problem z zapisaniem typów do bazy: ${error.message}`);
+    // alert(`Wystąpił problem z zapisaniem typów do bazy: ${error.message}`);
+    $q.notify(`Wystąpił problem z zapisaniem typów do bazy: ${error.message}`);
   } else {
-    alert("Typy zapisane poprawnie - Powodzenia!");
+    // alert("Typy zapisane poprawnie - Powodzenia!");
+    $q.notify("Typy zapisane poprawnie - Powodzenia!");
     router.push("/main");
   }
 

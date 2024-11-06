@@ -74,6 +74,7 @@ onMounted(async () => {
     const { data: games, error: ga_error } = await supabase
       .from("siatka-games")
       .select()
+      .order("round", { ascending: true })
       .order("gameNo", { ascending: true });
     if (ga_error) throw error;
     console.log("get games done");

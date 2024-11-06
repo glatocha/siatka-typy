@@ -62,6 +62,8 @@ import GameResult from "./GameResult.vue";
 import { usePiniaStore } from "src/stores/pinia";
 import { supabase } from "boot/supabase";
 import moment from "moment";
+import { useQuasar } from "quasar";
+const $q = useQuasar();
 
 const piniaStore = usePiniaStore();
 
@@ -84,13 +86,15 @@ async function saveScore() {
   //check if game alredy happened
   const now = moment();
   if (now.isBefore(moment(game.value.dateTime))) {
-    alert("Mecz się jeszcze nie odbył");
+    // alert("Mecz się jeszcze nie odbył");
+    $q.notify("Mecz się jeszcze nie odbył");
     emit("closePopup");
     return;
   }
   //check if result selected
   if (game.value.result === null) {
-    alert("Wybierz wynik");
+    // alert("Wybierz wynik");
+    $q.notify("Wybierz wynik");
     return;
   }
   //set the winner
@@ -112,7 +116,8 @@ async function saveScore() {
     .eq("id", game.value.id);
   if (error) {
     console.log("error :>> ", error);
-    alert(error);
+    // alert(error);
+    $q.notify(error);
   }
   emit("closePopup");
 }

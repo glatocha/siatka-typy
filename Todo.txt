@@ -1,4 +1,5 @@
 TODO - NEXT COMMIT:
+- edycja meczy (dat)
 - notifications 
     
 
@@ -34,6 +35,10 @@ DONE:
 - created PWA, run again the icongeenie
 ### release 0.3
 - fixed bug, the time calculation for adding score was fixed
+
+## 2024 mod - release 1.0.0
+- W ekranie Mecze i Wszystkie Typy, sortowanie po Kolejka/mecz nrs
+- w ekranie Wszystkie Typy nagłówek ma inną szerokość niz tabela
 
 
 

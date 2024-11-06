@@ -14,6 +14,7 @@
           class="q-px-md q-mr-sm"
           :class="{
             betOK: game.winner && game[`player${index + 1}Bet`] == game.winner,
+            blur: blurBets,
           }"
         >
           {{ game[`player${index + 1}Bet`] }}
@@ -32,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import GameResult from "./GameResult.vue";
 import { usePiniaStore } from "src/stores/pinia";
 
@@ -48,9 +49,19 @@ const emit = defineEmits(["closePopup"]);
 async function close() {
   emit("closePopup");
 }
+
+const blurBets = computed(() => {
+  return (
+    piniaStore.activePlayerBet(props.game.id) === null &&
+    props.game.winner === null
+  );
+});
 </script>
 
 <style lang="scss" scoped>
+.blur {
+  filter: blur(6px);
+}
 .score-line {
   font-size: 2em;
   border-bottom: 1px solid black;

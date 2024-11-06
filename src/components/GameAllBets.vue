@@ -2,7 +2,7 @@
   <div class="row">
     <!-- <div class="col">K {{ game.round }}</div> -->
     <div class="col">
-      {{ game.round < 100 ? `K ${game.round}` : `PO ${game.round - 100}` }}
+      {{ game.round < 100 ? `K ${game.round}` : `P ${game.round - 100}` }}
     </div>
     <div class="col-3 text-center" :class="{ winner: game.winner == 1 }">
       {{ piniaStore.team(game.teamHome).shortName }}
@@ -14,25 +14,37 @@
     <!-- <div class="col"></div> -->
     <div
       class="col text-center q-ml-sm"
-      :class="{ betOK: game.winner && game.winner == game.player1Bet }"
+      :class="{
+        betOK: game.winner && game.winner == game.player1Bet,
+        blur: blurBets,
+      }"
     >
       {{ game.player1Bet }}
     </div>
     <div
       class="col text-center"
-      :class="{ betOK: game.winner && game.winner == game.player2Bet }"
+      :class="{
+        betOK: game.winner && game.winner == game.player2Bet,
+        blur: blurBets,
+      }"
     >
       {{ game.player2Bet }}
     </div>
     <div
       class="col text-center"
-      :class="{ betOK: game.winner && game.winner == game.player3Bet }"
+      :class="{
+        betOK: game.winner && game.winner == game.player3Bet,
+        blur: blurBets,
+      }"
     >
       {{ game.player3Bet }}
     </div>
     <div
       class="col text-center"
-      :class="{ betOK: game.winner && game.winner == game.player4Bet }"
+      :class="{
+        betOK: game.winner && game.winner == game.player4Bet,
+        blur: blurBets,
+      }"
     >
       {{ game.player4Bet }}
     </div>
@@ -57,6 +69,19 @@ const newDateTimeString = computed(() => {
   // console.log("dt :>> ", dt);
   return dt.format("YYYY-MM-DD HH:mm");
 });
+
+const blurBets = computed(() => {
+  return (
+    piniaStore.activePlayerBet(props.game.id) === null &&
+    props.game.winner === null
+  );
+});
+
+// console.log(
+//   `game No: ${props.game.gameNo}, active player: ${
+//     piniaStore.activePlayer.name
+//   }, hasBet: ${piniaStore.activePlayerBet(props.game.id)}`
+// );
 </script>
 
 <style lang="scss" scoped>
@@ -77,5 +102,9 @@ const newDateTimeString = computed(() => {
   border: 1px solid $bet-highlight;
   border-radius: 3px;
   font-weight: bold;
+}
+
+.blur {
+  filter: blur(4px);
 }
 </style>

@@ -87,8 +87,18 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
+      lang: "pl",
       config: {
         loading: {},
+        notify: {
+          // type: "info",
+          color: "accent",
+          textColor: "white",
+          position: "center",
+          timeout: 1500,
+          // closeBtn: "OK 👍",
+          // classes: "q-notify-class",
+        },
       },
 
       // iconSet: 'material-icons', // Quasar icon set
@@ -102,7 +112,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ["Loading"],
+      plugins: ["Loading", "Notify"],
     },
 
     // animations: 'all', // --- includes all animations

@@ -25,7 +25,9 @@
 
     <q-page-sticky expand position="top">
       <!-- put the top here -->
-      <game-all-bets-header class="full-width q-px-sm q-pt-sm sticky-top" />
+      <game-all-bets-header
+        class="full-width q-px-sm q-pt-sm sticky-top maxW"
+      />
     </q-page-sticky>
   </q-page>
 
@@ -67,6 +69,10 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.maxW {
+  max-width: 800px;
+}
+
 .lastInRound {
   border-bottom: 3px solid black;
 }

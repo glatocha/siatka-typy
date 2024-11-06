@@ -100,7 +100,10 @@ onMounted(() => {
   setVerticalScrollPosition(target, offset, duration);
 
   if (piniaStore.gameNoScore) {
-    openPopup(piniaStore.gameNoScore);
+    //adding the timeout that the scroll have time to fire
+    setTimeout(() => {
+      openPopup(piniaStore.gameNoScore);
+    }, 300);
   }
 });
 
